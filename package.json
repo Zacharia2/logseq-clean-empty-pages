@@ -4,20 +4,30 @@
   "description": "",
   "main": "dist/index.html",
   "scripts": {
-    "build": "vite build",
-    "test": "vitest"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preinstall": "npx only-allow pnpm"
   },
   "keywords": [
     "logseq"
   ],
   "author": "明玥",
   "license": "MIT",
+  "dependencies": {
+    "@logseq/libs": "^0.0.17"
+  },
   "devDependencies": {
-    "@logseq/libs": "^0.0.17",
     "typescript": "^5.4.3",
-    "vite": "^5.2.2"
+    "vite": "^5.2.2",
+    "vite-plugin-logseq": "1.1.2",
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/exec": "6.0.3",
+    "@semantic-release/git": "10.0.1",
+    "@semantic-release/npm": "10.0.6",
+    "semantic-release": "21.1.2"
   },
   "logseq": {
-    "id": "logseq-clean-empty-pages"
+    "id": "logseq-clean-empty-pages",
+    "icon": "./logo.svg"
   }
 }
