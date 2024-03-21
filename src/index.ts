@@ -9,8 +9,9 @@ async function main() {
    * 清理空白日志
    * @param params
    */
-  async function clean_blank_journal(params: string) {
+  async function clean_blank_journal() {
     let a = await logseq.Editor.getAllPages();
+    console.info(a);
     // deletePage: ((pageName: string) => Promise<void>)
     // getAllPages: ((repo?: string) => Promise<PageEntity[]>)
     // getPagesFromNamespace: ((namespace: string) => Promise<PageEntity[]>)
@@ -27,7 +28,7 @@ async function main() {
     // :block/file {:db/id 1474},
     // :block/original-name "Mar 21st, 2024"}
   }
-
+  clean_blank_journal();
   const openIconName = "clean-empty-pages";
 
   logseq.provideStyle(css`
@@ -59,6 +60,7 @@ function subscribeLogseqEvent<T extends LSPluginUserEvents>(
   handler: (...args: any) => void
 ) {
   logseq.on(eventName, handler);
+  console.info(eventName);
   return () => {
     logseq.off(eventName, handler);
   };
