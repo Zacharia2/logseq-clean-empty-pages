@@ -5,13 +5,12 @@ import { LSPluginUserEvents } from "@logseq/libs/dist/LSPlugin.user";
 const css = (t, ...args) => String.raw(t, ...args);
 
 async function main() {
-
   /**
    * 清理空白日志
-   * @param params 
+   * @param params
    */
   async function clean_blank_journal(params: string) {
-    let a = await logseq.Editor.getAllPages()
+    let a = await logseq.Editor.getAllPages();
     // deletePage: ((pageName: string) => Promise<void>)
     // getAllPages: ((repo?: string) => Promise<PageEntity[]>)
     // getPagesFromNamespace: ((namespace: string) => Promise<PageEntity[]>)
@@ -25,10 +24,8 @@ async function main() {
     // :block/format :markdown,
     // :db/id 1468,
     // :block/name "mar 21st, 2024",
-    // :block/file {:db/id 1474}, 
+    // :block/file {:db/id 1474},
     // :block/original-name "Mar 21st, 2024"}
-
-
   }
 
   const openIconName = "clean-empty-pages";
@@ -53,7 +50,7 @@ async function main() {
   });
 }
 
-if (typeof logseq !== 'undefined') {
+if (typeof logseq !== "undefined") {
   logseq.ready(main).catch(console.error);
 }
 
@@ -66,3 +63,9 @@ function subscribeLogseqEvent<T extends LSPluginUserEvents>(
     logseq.off(eventName, handler);
   };
 }
+
+const subscribeToUIVisible = (onChange: () => void) =>
+  subscribeLogseqEvent("ui:visible:changed", ({ visible }) => {
+    // _visible = visible;
+    onChange();
+  });
