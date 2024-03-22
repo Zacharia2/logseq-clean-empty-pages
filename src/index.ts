@@ -14,6 +14,7 @@ const openIconName = "clean-empty-pages";
 //   "65fcd136-8e2c-4bcd-82e2-c6ba80367853"
 // );
 
+
 /**
  * 获取当前日期
  * @returns 整数类型的 YYYYMMDD 格式化日期
@@ -107,6 +108,7 @@ async function main() {
     clean_blank_journal();
   });
 }
+
 
 if (typeof logseq !== "undefined") {
   logseq.ready(main).catch(console.error);

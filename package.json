@@ -1,6 +1,6 @@
 {
   "name": "logseq-clean-empty-pages",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/index.html",
   "scripts": {
@@ -19,12 +19,7 @@
   "devDependencies": {
     "typescript": "^5.4.3",
     "vite": "^5.2.2",
-    "vite-plugin-logseq": "1.1.2",
-    "@semantic-release/changelog": "6.0.3",
-    "@semantic-release/exec": "6.0.3",
-    "@semantic-release/git": "10.0.1",
-    "@semantic-release/npm": "10.0.6",
-    "semantic-release": "21.1.2"
+    "vite-plugin-logseq": "1.1.2"
   },
   "logseq": {
     "id": "logseq-clean-empty-pages",
