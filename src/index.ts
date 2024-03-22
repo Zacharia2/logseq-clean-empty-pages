@@ -87,7 +87,7 @@ async function main() {
           `空白日志 ${empty_journal.name} 已删除`,
           "success"
         );
-        console.info(empty_journal.empty_journal, empty_journal);
+        console.info(empty_journal.name, empty_journal);
       }
     } else {
       await logseq.UI.showMsg(`没有空白日志`, "warning");
