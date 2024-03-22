@@ -14,7 +14,6 @@ const openIconName = "clean-empty-pages";
 //   "65fcd136-8e2c-4bcd-82e2-c6ba80367853"
 // );
 
-
 /**
  * 获取当前日期
  * @returns 整数类型的 YYYYMMDD 格式化日期
@@ -52,52 +51,61 @@ function is_empty_journal_blocks(journal_blocks: BlockEntity[]) {
     }
   }
 }
-
-/**
- * 获取空白日志列表
- * @returns PageEntity[]
- */
-async function get_blank_journals() {
-  let empty_journal_list: PageEntity[] = Array();
+async function get_current_graph_pages() {
   let graph = await logseq.App.getCurrentGraph();
   if (graph) {
     // 获取所有页面,遍历所有页面。
     let current_graph_all_pages = await logseq.Editor.getAllPages(graph.url);
     if (current_graph_all_pages) {
-      for (const page of current_graph_all_pages) {
-        // 筛选出日志类型的页面
-        if ("journal?" in page && page["journal?"]) {
-          // 排除今天的日志
-          if (page.journalDay === get_curr_time()) {
-            continue;
-          }
-          // 获取页面中的所有的块。
-          let journal_blocks = await logseq.Editor.getPageBlocksTree(page.uuid);
-          if (!is_empty_journal_blocks(journal_blocks)) {
-            continue;
-          } else {
-            empty_journal_list.push(page);
-          }
+      return current_graph_all_pages;
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+}
+/**
+ * 获取空白日志列表
+ * @returns PageEntity[]
+ */
+async function get_current_graph_blank_journals() {
+  let empty_journal_list: PageEntity[] = Array();
+  let current_graph_all_pages = await get_current_graph_pages();
+  if (current_graph_all_pages) {
+    for (const page of current_graph_all_pages) {
+      // 筛选出日志类型的页面
+      if ("journal?" in page && page["journal?"]) {
+        // 排除今天的日志
+        if (page.journalDay === get_curr_time()) {
+          continue;
+        }
+        // 获取页面中的所有的块。
+        let journal_blocks = await logseq.Editor.getPageBlocksTree(page.uuid);
+        if (!is_empty_journal_blocks(journal_blocks)) {
+          continue;
+        } else {
+          empty_journal_list.push(page);
         }
       }
-      // current_graph_all_pages.forEach(async (page) => {});
     }
+    // current_graph_all_pages.forEach(async (page) => {});
   }
   return empty_journal_list;
 }
 
 async function main() {
   async function clean_blank_journal() {
-    let empty_journal_list = await get_blank_journals();
-    if (empty_journal_list.length > 0) {
-      for (const empty_journal of empty_journal_list) {
+    let blank_journals = await get_current_graph_blank_journals();
+    if (blank_journals.length > 0) {
+      for (const blank_journal of blank_journals) {
         // 只有这个一个删除API
-        await logseq.Editor.deletePage(empty_journal.name);
+        await logseq.Editor.deletePage(blank_journal.name);
         await logseq.UI.showMsg(
-          `空白日志 ${empty_journal.name} 已删除`,
+          `空白日志 ${blank_journal.name} 已删除`,
           "success"
         );
-        console.info(empty_journal.name, empty_journal);
+        console.info(blank_journal.name, blank_journal);
       }
     } else {
       await logseq.UI.showMsg(`没有空白日志`, "warning");
@@ -108,7 +116,6 @@ async function main() {
     clean_blank_journal();
   });
 }
-
 
 if (typeof logseq !== "undefined") {
   logseq.ready(main).catch(console.error);
