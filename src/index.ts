@@ -23,7 +23,7 @@ async function main() {
           // 获取页面中的所有的块。
           let journal_blocks = await logseq.Editor.getPageBlocksTree(page.uuid);
           if (is_empty_journal_blocks(journal_blocks)) {
-            logseq.Editor.deletePage(page.name);
+            await logseq.Editor.deletePage(page.name);
             // 刷新后文件依然存在。
             console.info(page.name, page);
           } else {
@@ -72,7 +72,7 @@ async function main() {
     // 格式化日期为YYYYMMDD
     const formattedDate = `${year}${formattedMonth}${formattedDay}`;
 
-    console.log(formattedDate); // 输出格式如： 20230131
+    // console.log(formattedDate); // 输出格式如： 20230131
     return parseInt(formattedDate);
   }
 }
