@@ -14,6 +14,10 @@ const openIconName = "clean-empty-pages";
 //   "65fcd136-8e2c-4bcd-82e2-c6ba80367853"
 // );
 
+/**
+ * 获取当前日期
+ * @returns 整数类型的 YYYYMMDD 格式化日期
+ */
 function get_curr_time() {
   // 获取当前日期和时间
   const now = new Date();
@@ -27,6 +31,11 @@ function get_curr_time() {
   return parseInt(`${year}${formattedMonth}${formattedDay}`);
 }
 
+/**
+ * 判断日志是否全部是空白日志块
+ * @param journal_blocks
+ * @returns 若为空白日志返回true，否则返回undefined
+ */
 function is_empty_journal_blocks(journal_blocks: BlockEntity[]) {
   // 日志没有任何内容: 一个页面中的每个块children长度为0，并且这些content=""。
   // 判断journal块列表
@@ -43,6 +52,10 @@ function is_empty_journal_blocks(journal_blocks: BlockEntity[]) {
   }
 }
 
+/**
+ * 获取空白日志列表
+ * @returns PageEntity[]
+ */
 async function get_blank_journals() {
   let empty_journal_list: PageEntity[] = Array();
   let graph = await logseq.App.getCurrentGraph();
@@ -73,10 +86,6 @@ async function get_blank_journals() {
 }
 
 async function main() {
-  /**
-   * 清理空白日志
-   * @param params
-   */
   async function clean_blank_journal() {
     let empty_journal_list = await get_blank_journals();
     if (empty_journal_list.length > 0) {
