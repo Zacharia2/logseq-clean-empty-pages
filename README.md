@@ -4,7 +4,7 @@
 
 ## 如何安装
 
-下载此仓库 zip 文件，然后使用 logseq 的本地安装的方法安装。
+Code - Download ZIP，下载此仓库 zip 文件，然后使用 logseq 的本地安装的方法安装。
 
 PS：因搞不明白 actions 自动化，所以暂时用这种办法吧。
 
