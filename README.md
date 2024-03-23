@@ -1,5 +1,12 @@
 # Logseq Plugin: *clean-empty-pages*
 
+![](assert\describe.gif)
+## 如何安装
+
+下载此仓库zip文件，然后使用logseq的本地安装的方法安装。
+
+PS：因搞不明白actions自动化，所以暂时用这种办法吧。
+
 ## 如何使用
 
 仅注册了PageMenuItem，删除空白日志。所以可以在页标题上又单击召出菜单使用。
