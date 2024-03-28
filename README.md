@@ -1,5 +1,9 @@
 # Logseq Plugin: _clean-empty-pages_
 
+
+发现：logseq自带此功能：全部页面-〉右侧三个点-〉删除孤立页面
+
+
 ![](instruction.gif)
 
 ## 如何安装
